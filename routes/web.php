@@ -25,6 +25,7 @@ Route::prefix('profiles')->group(function(){
 });
 
 Route::prefix('manage')->group(function(){		
+	Route::resource('/permissions', 'PermissionController',['as' => 'manage']);
 	Route::get('/', 'ManageController@index')->name('manage.index');	
 });
 
