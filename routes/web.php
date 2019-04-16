@@ -24,4 +24,8 @@ Route::prefix('profiles')->group(function(){
 	Route::patch('/{user}', 'ProfileController@update')->name('profiles.update');
 });
 
+Route::prefix('manage')->group(function(){		
+	Route::get('/', 'ManageController@index')->name('manage.index');	
+});
+
 Route::get('/home', 'HomeController@index')->name('home');

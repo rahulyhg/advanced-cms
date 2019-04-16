@@ -40,18 +40,7 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                             @endif
-                            @else
-                            @role('superadministrator')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('manage.permissions.index') }}">{{ __('Manage Permission') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('manage.roles.index') }}">{{ __('Manage Role') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('manage.users.index') }}">{{ __('Manage User') }}</a>
-                            </li>
-                            @endrole
+                            @else                            
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
