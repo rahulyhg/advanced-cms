@@ -87,14 +87,21 @@ class UserController extends Controller
             'name' => ['string', 'max:255'],
             'email' => ['string', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'password' => ['string', 'min:8', 'confirmed'],
+            'currentPassword' => ['required', 'string', 'min:8'],
         ));
-        $user->name = $request->name;
-        $user->email = $request->email;
-        if ($request->has('password')) {
-            $user->password = bcrypt($request->password);
-        }        
-        $user->save();
-        return redirect()->route('manage.users.index')->with('success', 'user has been updated');
+        if ((Hash::check($request->currentPassword, $user->password)) && $request->email == $user->email){
+            $user->name = $request->name;
+            $user->email = $request->email;
+            if ($request->has('password')) {
+                $user->password = bcrypt($request->password);
+            }        
+            $user->save();
+            return redirect()->route('manage.users.index')->with('success', 'user has been updated');
+        }else{
+            return redirect()->route('manage.users.index')->with('fail', 'wrong password');
+        }
+        
+        
     }
 
     public function assignRolesForm(User $user){
