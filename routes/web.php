@@ -17,4 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::prefix('profiles')->group(function(){
+	Route::get('/show_login_form', 'ProfileController@showLoginForm')->name('profiles.show_login_form');
+	Route::post('/login', 'ProfileController@login')->name('profiles.login');
+	Route::get('/{user}/edit', 'ProfileController@edit')->name('profiles.edit');
+	Route::patch('/{user}', 'ProfileController@update')->name('profiles.update');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
