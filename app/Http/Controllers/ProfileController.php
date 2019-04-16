@@ -67,8 +67,12 @@ class ProfileController extends Controller
             'password' => ['string'],
         ));
         $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        if ($request->has('email')) {
+            $user->email = $request->email;    
+        }
+        if ($request->has('password')) {
+            $user->password = bcrypt($request->password);
+        }        
         $user->save();
         return redirect()->route('home')->with('success', 'user succesfully updated');
     }    
