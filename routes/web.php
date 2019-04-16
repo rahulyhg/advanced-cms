@@ -29,6 +29,9 @@ Route::prefix('manage')->group(function(){
 	Route::resource('/roles', 'RoleController',['as' => 'manage']);
 	Route::get('/roles/{role}/assign_permissions_form', 'RoleController@assignPermissionsForm')->name('manage.roles.assign_permissions_form');
 	Route::post('/roles/{role}/assign_permissions', 'RoleController@assignPermissions')->name('manage.roles.assign_permissions');
+	Route::resource('/users', 'UserController',['as' => 'manage']);
+	Route::get('/users/{user}/assign_roles_form', 'UserController@assignRolesForm')->name('manage.users.assign_roles_form');
+	Route::post('/users/{user}/assign_roles', 'UserController@assignRoles')->name('manage.users.assign_roles');
 	Route::get('/', 'ManageController@index')->name('manage.index');	
 });
 
