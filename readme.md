@@ -22,3 +22,6 @@ php artisan migrate
 11. Seed the database : 
 php artisan db:seed
 12. You can use this project, note that in the database there will be some data, go check it and the password for every user is "password"
+
+
+I made example of how to protect route and controller using middleware in routes/web.php and in UserController, RoleController just an example of use middleware to protect some action, i also made example of how to protect some view component in resources/views/layouts/app.blade.php, read more to the full documentation of laratrust : https://laratrust.santigarcor.me/docs/5.2/
