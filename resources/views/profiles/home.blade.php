@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <p>Welcome {{ Auth::user()->name }}</p>
                     <a href="{{ route('profiles.show_login_form') }}" class="btn btn-primary">Edit User Info</a>
                 </div>
             </div>

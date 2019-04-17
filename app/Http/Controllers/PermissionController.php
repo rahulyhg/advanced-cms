@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:create-permissions', ['only' => ['create', 'store']]);
+        $this->middleware('permission:read-permissions', ['only' => ['index', 'show']]);
+        $this->middleware('permission:update-permissions', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-permissions', ['only' => ['destroy']]);
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -65,7 +74,7 @@ class PermissionController extends Controller
                 $permission->save();
             }        
         }
-        return redirect()->route('manage.permissions.index')->with('success', 'role has been created');
+        return redirect()->route('manage.permissions.index')->with('success', 'permission has been created');
     }
 
     /**

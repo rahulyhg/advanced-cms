@@ -34,11 +34,15 @@ class ProfileController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string'],
         ));        
-        if ((Hash::check($request->password, Auth::user()->password)) && $request->email==Auth::user()->email){
-                    return redirect()->route('profiles.edit', Auth::user());
+        if ($request->email==Auth::user()->email) {
+            if ((Hash::check($request->password, Auth::user()->password))) {
+                return redirect()->route('profiles.edit', Auth::user());
+            }else{
+                return back()->with('fail', 'wrong password');    
+            }
         }else{
-            return redirect()->route('home')->with('fail', 'wrong password');
-        }
+            return back()->with('fail', 'no credential');
+        }        
     }
 
     /**

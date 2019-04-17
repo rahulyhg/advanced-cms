@@ -41,17 +41,21 @@
                             </li>
                             @endif
                             @else
-                            @role('superadministrator')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('manage.permissions.index') }}">{{ __('Manage Permission') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('manage.roles.index') }}">{{ __('Manage Role') }}</a>
-                            </li>
+                            @permission('read-users')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('manage.users.index') }}">{{ __('Manage User') }}</a>
                             </li>
-                            @endrole
+                            @endpermission
+                            @permission('read-permissions')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('manage.permissions.index') }}">{{ __('Manage Permission') }}</a>
+                            </li>
+                            @endpermission
+                            @permission('read-roles')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('manage.roles.index') }}">{{ __('Manage Role') }}</a>
+                            </li>
+                            @endpermission
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -65,6 +69,14 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        {{ __('Home') }}
+                                    </a>
+                                    @permission('access-acl-dashboard')
+                                    <a class="dropdown-item" href="{{ route('manage.index') }}">
+                                        {{ __('ACL Dashboard') }}
+                                    </a>
+                                    @endrole
                                 </div>
                             </li>
                             @endguest

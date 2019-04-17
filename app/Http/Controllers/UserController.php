@@ -10,6 +10,15 @@ use Hash;
 
 class UserController extends Controller
 {    
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:create-users', ['only' => ['create', 'store']]);
+        $this->middleware('permission:read-users', ['only' => ['index', 'show']]);
+        $this->middleware('permission:update-users', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-users', ['only' => ['destroy']]);
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -87,21 +96,19 @@ class UserController extends Controller
             'name' => ['string', 'max:255'],
             'email' => ['string', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'password' => ['string', 'min:8', 'confirmed'],
-            'currentPassword' => ['required', 'string', 'min:8'],
-        ));
-        if ((Hash::check($request->currentPassword, $user->password)) && $request->email == $user->email){
+            'currentPassword' => ['required', 'string'],
+        ));        
+        if ((Hash::check($request->currentPassword, $user->password))) {
             $user->name = $request->name;
             $user->email = $request->email;
             if ($request->has('password')) {
                 $user->password = bcrypt($request->password);
             }        
-            $user->save();
+            $user->save();    
             return redirect()->route('manage.users.index')->with('success', 'user has been updated');
         }else{
-            return redirect()->route('manage.users.index')->with('fail', 'wrong password');
-        }
-        
-        
+            return back()->with('fail', 'wrong password');    
+        }                
     }
 
     public function assignRolesForm(User $user){

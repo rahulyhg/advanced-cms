@@ -57,7 +57,7 @@
                             <div class="form-group row">
                                 <label for="resource" class="col-md-4 col-form-label text-md-right">{{ __('Resource name') }}</label>
                                 <div class="col-md-6">
-                                    <input id="resource" type="text" class="form-control{{ $errors->has('resource') ? ' is-invalid' : '' }}" name="resource" value="{{ old('resource') }}" autofocus>
+                                    <input id="resource" type="text" class="form-control{{ $errors->has('resource') ? ' is-invalid' : '' }}" name="resource" value="{{ old('resource') }}" placeholder="Please enter resource in plural (example:posts)" autofocus>
                                     @if ($errors->has('resource'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('resource') }}</strong>
